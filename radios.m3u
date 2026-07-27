@@ -22,7 +22,7 @@ https://casthttps1.suaradionanet.net/10016/stream
 #EXTINF:-1 tvg-logo="https://img.radios.com.br/radio/lg/radio18150_1777312125.jpg" group-title="Rádios Região Norte RS",[ARATIBA] Rádio Nova Onda 105.9 FM
 https://stream.splug.com.br:8443/Radio56
 
-#EXTINF:-1 tvg-logo="https://img.radios.com.br/radio/lg/radio179781_1684782043.jpg" group-title="Rádios Região Norte RS",[ÁUREA] Rádio Poslka
+#EXTINF:-1 tvg-logo="https://img.radios.com.br/radio/lg/radio179781_1684782043.jpg" group-title="Rádios Região Norte RS",[ÁUREA] Rádio Poslka 85.7 FM
 https://livecasthd.com.br/play.php?porta=27488
 
 #EXTINF:-1 tvg-logo="https://img.radios.com.br/radio/lg/radio30873_1628094535.jpg" group-title="Rádios Região Norte RS",[GAURAMA] Rádio Alternativa FM 105.9
@@ -35,4 +35,23 @@ https://stm01.virtualcast.com.br:8482/gaurama
 https://server3.webradios.com.br:19312/9312
 
 #EXTINF:-1 tvg-logo="https://img.radios.com.br/radio/lg/radio14492_1733342562.jpg" group-title="Rádios Região Norte RS",[SANANDUVA] Rádio Sananduva 97.7 FM
-https://stream.loopert.com/stream/153
+https://stm01.virtualcast.com.br:8328/sananduva
+
+#EXTINF:-1 tvg-logo="https://chapeco.fm/wp-content/uploads/2025/03/CHAPECO-FM-SOCIAIS_001-150x150.png" group-title="RÁDIOS CHAPECÓ",Rádio Chapecó 100.1 FM
+https://stm01.virtualcast.com.br:8192/chapeco
+
+#EXTINF:-1 tvg-logo="https://img.radios.com.br/radio/lg/radio136695_1701896722.png" group-title="RÁDIOS CHAPECÓ",Band FM Chapecó 94.7 FM
+https://stm10.virtualcast.com.br:8330/bandchapeco
+
+#EXTINF:-1 tvg-logo="https://img.radios.com.br/radio/lg/radio25591_1717576966.png" group-title="RÁDIOS CHAPECÓ",Clube 104.5 FM (Studio)
+https://clubefm1.brasilstream.com.br/hls/clubefm1/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://img.radios.com.br/radio/lg/radio25591_1717576966.png" group-title="RÁDIOS CHAPECÓ",Clube FM 104.5
+https://stream.loopert.com/186
+
+#EXTINF:-1 tvg-logo="https://atualfm.com.br/wp-content/uploads/2022/02/atual_fm_logo_topo_horizontal_amarela.png" group-title="RÁDIOS SC",[CONCÓRDIA] Atual 103.5 FM
+https://radio02.logicahost.com.br:7018/stream
+
+#EXTINF:-1 tvg-logo="https://atualfm.com.br/wp-content/uploads/2022/02/atual_fm_logo_topo_horizontal_amarela.png" group-title="RÁDIOS SC",[CONCÓRDIA] Atual 103.5 FM (Studio)
+https://video11.logicahost.com.br/atualfm/atualfm/playlist.m3u8
+
