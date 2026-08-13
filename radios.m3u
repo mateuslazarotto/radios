@@ -55,3 +55,7 @@ https://radio02.logicahost.com.br:7018/stream
 #EXTINF:-1 tvg-logo="https://atualfm.com.br/wp-content/uploads/2022/02/atual_fm_logo_topo_horizontal_amarela.png" group-title="RÁDIOS SC",[CONCÓRDIA] Atual 103.5 FM (Studio)
 https://video11.logicahost.com.br/atualfm/atualfm/playlist.m3u8
 
+#EXTINF:-1 tvg-logo="https://img.radios.com.br/radio/lg/radio117621_1721931263.jpg" group-title="RÁDIOS BR",Rádio GOV (EBC)
+https://redenacionalderadio-stream.ebc.com.br/ebc/redenacionalderadio/playlist.m3u8
+
+
