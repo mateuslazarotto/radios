@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f172a">
+    <title>Contador de Tempo</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Helvetica, Arial, sans-serif;
+            color: #f8fafc;
+            background:
+                radial-gradient(circle at top, #1e3a5f 0%, transparent 45%),
+                linear-gradient(145deg, #020617, #0f172a 55%, #111827);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .card {
+            padding: 36px 24px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            background: rgba(15, 23, 42, 0.78);
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .label {
+            margin-bottom: 12px;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .date {
+            margin-bottom: 32px;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .counter {
+            min-height: 130px;
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            color: #ffffff;
+            font-size: clamp(1.7rem, 7vw, 2.7rem);
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.04em;
+        }
+
+        .counter span {
+            color: #60a5fa;
+        }
+
+        .seconds {
+            margin-top: 18px;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        .footer {
+            margin-top: 28px;
+            color: #475569;
+            font-size: 0.75rem;
+        }
+
+        @media (max-width: 400px) {
+            .card {
+                padding: 30px 18px;
+                border-radius: 22px;
+            }
+
+            .counter {
+                font-size: 1.55rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+        <section class="card">
+
+            <div class="label">Tempo decorrido</div>
+
+            <div class="date">
+                Desde 07/07/2026 às 14:04
+            </div>
+
+            <div class="counter" id="counter">
+                Calculando...
+            </div>
+
+            <div class="seconds" id="seconds">
+                0 segundos
+            </div>
+
+            <div class="footer">
+                Atualização em tempo real
+            </div>
+
+        </section>
+    </main>
+
+    <script>
+        // ==========================================
+        // DATA INICIAL
+        // ==========================================
+        const inicio = new Date(2026, 8, 7, 14, 4, 0);
+
+
+        // ==========================================
+        // FUNÇÕES
+        // ==========================================
+
+        function plural(valor, singular, plural) {
+            return valor === 1 ? singular : plural;
+        }
+
+        function adicionarMeses(data, meses) {
+            const novaData = new Date(data);
+
+            const diaOriginal = novaData.getDate();
+
+            novaData.setDate(1);
+            novaData.setMonth(novaData.getMonth() + meses);
+
+            const ultimoDia = new Date(
+                novaData.getFullYear(),
+                novaData.getMonth() + 1,
+                0
+            ).getDate();
+
+            novaData.setDate(Math.min(diaOriginal, ultimoDia));
+
+            return novaData;
+        }
+
+
+        function calcularTempo(inicio, agora) {
+            let anos = agora.getFullYear() - inicio.getFullYear();
+
+            let dataAniversario = new Date(
+                inicio.getFullYear() + anos,
+                inicio.getMonth(),
+                inicio.getDate(),
+                inicio.getHours(),
+                inicio.getMinutes(),
+                inicio.getSeconds()
+            );
+
+            if (dataAniversario > agora) {
+                anos--;
+                dataAniversario = new Date(
+                    inicio.getFullYear() + anos,
+                    inicio.getMonth(),
+                    inicio.getDate(),
+                    inicio.getHours(),
+                    inicio.getMinutes(),
+                    inicio.getSeconds()
+                );
+            }
+
+            let meses = 0;
+            let dataMeses = new Date(dataAniversario);
+
+            while (true) {
+                const proximoMes = adicionarMeses(dataMeses, 1);
+
+                if (proximoMes <= agora) {
+                    meses++;
+                    dataMeses = proximoMes;
+                } else {
+                    break;
+                }
+            }
+
+            let restante = agora - dataMeses;
+
+            const dias = Math.floor(restante / 86400000);
+            restante %= 86400000;
+
+            const horas = Math.floor(restante / 3600000);
+            restante %= 3600000;
+
+            const minutos = Math.floor(restante / 60000);
+            restante %= 60000;
+
+            const segundos = Math.floor(restante / 1000);
+
+            return {
+                anos,
+                meses,
+                dias,
+                horas,
+                minutos,
+                segundos
+            };
+        }
+
+
+        function atualizar() {
+            const agora = new Date();
+
+            // Se ainda não chegou à data inicial
+            if (agora < inicio) {
+                const diferenca = inicio - agora;
+
+                const dias = Math.floor(diferenca / 86400000);
+                const horas = Math.floor(
+                    (diferenca % 86400000) / 3600000
+                );
+                const minutos = Math.floor(
+                    (diferenca % 3600000) / 60000
+                );
+                const segundos = Math.floor(
+                    (diferenca % 60000) / 1000
+                );
+
+                document.getElementById("counter").innerHTML =
+                    `Começa em<br>
+                    <span>${dias}</span> dias,
+                    <span>${horas}</span> horas,
+                    <span>${minutos}</span> minutos`;
+
+                document.getElementById("seconds").textContent =
+                    `${segundos} segundos`;
+
+                return;
+            }
+
+            const tempo = calcularTempo(inicio, agora);
+
+            let texto = "";
+
+            // Antes de completar 1 mês
+            if (tempo.anos === 0 && tempo.meses === 0) {
+
+                texto =
+                    `<span>${tempo.dias}</span> ${plural(tempo.dias, "dia", "dias")}` +
+                    `<br /><span>${tempo.horas}</span> ${plural(tempo.horas, "hora", "horas")}` +
+                    `<br /><span>${tempo.minutos}</span> ${plural(tempo.minutos, "minuto", "minutos")}`;
+
+            }
+
+            // Depois de completar 1 mês, mas antes de 1 ano
+            else if (tempo.anos === 0) {
+
+                texto =
+                    `<span>${tempo.meses}</span> ${plural(tempo.meses, "mês", "meses")}` +
+                    `<br /><span>${tempo.dias}</span> ${plural(tempo.dias, "dia", "dias")}` +
+                    `<br /><span>${tempo.horas}</span> ${plural(tempo.horas, "hora", "horas")}` +
+                    `<br /><span>${tempo.minutos}</span> ${plural(tempo.minutos, "minuto", "minutos")}`;
+
+            }
+
+            // Depois de completar 1 ano
+            else {
+
+                texto =
+                    `<span>${tempo.anos}</span> ${plural(tempo.anos, "ano", "anos")}` +
+                    `<br /><span>${tempo.meses}</span> ${plural(tempo.meses, "mês", "meses")}` +
+                    `<br /><span>${tempo.dias}</span> ${plural(tempo.dias, "dia", "dias")}` +
+                    `<br /><span>${tempo.horas}</span> ${plural(tempo.horas, "hora", "horas")}` +
+                    `<br /><span>${tempo.minutos}</span> ${plural(tempo.minutos, "minuto", "minutos")}`;
+            }
+
+            document.getElementById("counter").innerHTML = texto;
+
+            document.getElementById("seconds").textContent =
+                `${tempo.segundos} ${plural(
+                    tempo.segundos,
+                    "segundo",
+                    "segundos"
+                )}`;
+        }
+
+
+        // Atualiza imediatamente
+        atualizar();
+
+        // Atualiza a cada segundo
+        setInterval(atualizar, 1000);
+    </script>
+
+</body>
+</html>
